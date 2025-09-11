@@ -1,0 +1,46 @@
+1. Qual a diferença entre programa e processo?
+2. Quais são os estados de um processo e quando ocorrem as transições?
+3. O que contém um Process Control Block (PCB)?
+4. O que acontece com os recursos de um processo quando ele termina?
+5. Qual a diferença entre fork() e exec() no UNIX?
+6. Como funciona a hierarquia de processos em UNIX?
+7. Compare memória compartilhada e troca de mensagens (IPC).
+8. Cite exemplos de chamadas de sistema usadas em IPC.
+9. Por que é importante que o sistema operacional faça gerenciamento de processos?
+10. Explique a diferença entre processos independentes e processos cooperativos.
+11. O que é um processo zumbi em UNIX/Linux?
+12. Explique a diferença entre chamadas bloqueantes e não bloqueantes em IPC.
+13. Qual a diferença entre processo pesado (process) e thread (processo leve)?
+14. Por que sistemas operacionais multiprogramados precisam de troca de contexto (context switch)?
+15. Cite vantagens e desvantagens da comunicação via memória compartilhada.
+
+Respostas: 
+
+1. Programa e um conjuntos de intruções armazenadas em disco, já o processo e a exercução de um programa em memória.
+2. 
+  novo: Quando o arquivo e criado;
+  pronto: Aguardado ser escalado para a CPU;
+  executando: Quando o programa está na CPU;
+  bloqueado / esperando: Quando o programa está esperando aguardado o ex: (S / N)
+  finalizado: Quaando o processo terminou a exercução
+
+3. 
+  Indentifição do processo;
+  Estado atual;
+  Contador de programa;
+  Registradores da CPU;
+  Informações de memória;
+  Informações de S/N;
+  Prioridade e dados de escalonamento.
+
+4. São liberados pelo sistema operacional para que outros processos utilizem da CPU, memória e etc.
+
+5. 
+  fork(): Cria um novo processo duplicando o processo pai.
+  exec(): Subtitui o processo atual por um novo programa.
+
+6. A hierarquia do UNIX forma meio que uma espécie de árvore tendo o processo inicial (init / systemd) como a raiz, processos filhos são criados com fork() é cada processo tem um pai exceto o init.
+
+
+
+
