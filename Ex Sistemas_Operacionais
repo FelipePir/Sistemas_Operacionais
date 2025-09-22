@@ -41,6 +41,41 @@ Respostas:
 
 6. A hierarquia do UNIX forma meio que uma espécie de árvore tendo o processo inicial (init / systemd) como a raiz, processos filhos são criados com fork() é cada processo tem um pai exceto o init.
 
+7. 
+  Memória compartilhada: vários processos acessam uma mesma área de memória para trocar informações. É mais rápido, mas exige mecanismos de sincronização (ex.: semáforos) para evitar conflitos.
+
+  Troca de mensagens: os processos se comunicam enviando e recebendo mensagens pelo sistema operacional. É mais simples e seguro, mas tende a ser mais lento por envolver o kernel.
+
+8. utilizamos o pipe(), msgget(), msgsnd(), msgrcv(), shmget(), shmat(), shmdt(), semget() é semop().
+
+9. Porque o SO precisa organizar a execução dos processos, garantindo uso justo da CPU, memória e outros recursos, além de evitar conflitos, melhorar o desempenho e permitir que múltiplos programas rodem ao mesmo tempo sem interferir um no outro.
+
+10. 
+  Independentes: não compartilham dados nem se comunicam com outros processos, ou seja, rodam sozinhos.
+
+  Cooperativos: interagem e compartilham informações entre si, podendo influenciar a execução uns dos outros.
 
 
+11. É um processo que já terminou a execução, mas cujo pai ainda não coletou o seu estado de saída (via wait()). Ele continua listado na tabela de processos, ocupando espaço, até que o pai finalize ou colete o resultado.
 
+
+12.
+  Bloqueantes: o processo que faz a chamada fica parado esperando a operação terminar, um exemplo e esperar receber uma mensagem.
+
+  Não bloqueantes: o processo faz a chamada e continua sua execução mesmo que a operação ainda não tenha sido concluída.
+
+
+13.
+  Processo (pesado): tem espaço de memória próprio, tabela de arquivos e recursos independentes. Criar e gerenciar processos é mais custoso.
+
+  Thread (leve): compartilha memória e recursos do processo pai, mas tem fluxo de execução próprio. É mais leve, rápido e eficiente.
+
+
+14. Porque a CPU precisa alternar entre vários processos ativos. A troca de contexto salva o estado do processo atual e carrega o estado de outro, garantindo que vários programas possam rodar de forma quase simultânea.
+
+
+15.
+
+  Vantagens: muito rápida, não depende de chamadas frequentes ao SO, eficiente para grandes volumes de dados.
+
+  Desvantagens: exige mecanismos de sincronização para evitar conflitos, maior complexidade de implementação, risco de erros difíceis de detectar (ex.: condições de corrida).
