@@ -1,0 +1,274 @@
+1. O que é gerência de memória em um sistema operacional?
+
+A gerência de memória é o conjunto de técnicas e mecanismos utilizados pelo sistema operacional para controlar e coordenar o uso da memória principal (RAM).  
+Seu objetivo é garantir que cada processo receba a quantidade de memória necessária, sem interferir em outros processos, e que o uso da RAM seja o mais eficiente possível.  
+Ela é responsável por **alocar, monitorar e liberar** espaços de memória conforme os programas são executados.
+
+
+
+2. Qual é a principal função do gerenciador de memória?
+ 
+A principal função é **gerenciar a alocação e liberação de memória** para os processos.  
+Ele precisa decidir:
+- Quais processos podem ocupar a memória;
+- Quanto espaço cada um receberá;
+- Quando liberar memória que não está mais em uso.  
+Além disso, o gerenciador de memória controla o acesso aos endereços, garantindo **proteção e isolamento**, evitando que um processo altere dados de outro.
+
+
+ 3. O que é memória primária e memória secundária?
+
+Memória primária (RAM): 
+  É volátil e de acesso rápido. Armazena dados e instruções que estão em uso imediato pelos processos.  
+  Quando o computador é desligado, seu conteúdo é perdido.  
+Memória secundária (disco rígido, SSD, etc.): 
+  É não volátil e usada para armazenar dados de forma permanente.  
+  Em sistemas com memória virtual, parte dessa memória é usada para **simular RAM**, armazenando dados temporariamente.
+
+
+4. O que é partição fixa?
+
+Na alocação de partições fixas, a memória é dividida em blocos de tamanho fixo durante a inicialização do sistema.  
+Cada processo é carregado em uma partição, e se ele não ocupar todo o espaço, o restante é desperdiçado — isso causa **fragmentação interna**.  
+É um método simples e rápido, mas pouco eficiente, pois limita o número e o tamanho dos processos.
+
+
+5. O que é partição variável?
+
+A alocação por partições variáveis permite que as divisões de memória se ajustem ao tamanho real de cada processo.  
+Assim, a memória é alocada sob demanda e liberada quando o processo termina.  
+Apesar de reduzir a fragmentação interna, pode gerar **fragmentação externa** (espaços livres espalhados na RAM), exigindo técnicas como **compactação** para reorganizar a memória.
+
+
+6. O que é fragmentação de memória?
+ 
+Fragmentação ocorre quando a memória é mal distribuída, gerando espaços não aproveitados.  
+- Fragmentação interna:** sobra de espaço dentro de partições fixas.  
+- Fragmentação externa:** pequenos blocos livres espalhados na RAM.  
+Ambas reduzem o aproveitamento da memória e podem afetar o desempenho do sistema.
+
+
+7. Qual a diferença entre fragmentação interna e externa?
+
+- Interna: causada por partições fixas; sobra de espaço dentro de um bloco alocado.  
+- Externa: causada por alocação variável; sobra de espaço entre blocos de processos.  
+A fragmentação interna é inevitável em sistemas de partições fixas, enquanto a externa pode ser amenizada com **compactação** (reorganização dos blocos na RAM).
+
+
+8. O que é paginação?
+ 
+A paginação é uma técnica de gerência de memória que divide o espaço lógico dos processos e a memória física em blocos de tamanho fixo chamados **páginas** (lógicas) e **quadros** (físicos).  
+Quando um processo é executado, suas páginas são carregadas em quadros disponíveis na RAM.  
+A paginação elimina a fragmentação externa e simplifica a alocação, mas pode causar **page faults** quando a página necessária não está na memória.
+
+
+9. O que é segmentação?
+ 
+A segmentação é uma técnica em que o espaço de endereçamento de um processo é dividido em **segmentos lógicos** (como código, pilha e dados).  
+Cada segmento pode ter tamanho diferente e receber diferentes permissões (leitura, escrita, execução).  
+Essa técnica favorece a organização lógica e a proteção entre partes do programa, mas pode causar fragmentação externa.
+
+
+10. Qual a diferença entre paginação e segmentação?
+
+A paginação divide a memória em blocos fixos chamados páginas, facilitando o
+gerenciamento físico e evitando fragmentação externa. Já a segmentação divide o
+programa em partes lógicas e variáveis, como código e dados, refletindo a estrutura do
+software. Paginação pode gerar fragmentação interna, enquanto segmentação pode
+gerar externa.
+
+
+11. O que é memória virtual?
+
+Memória virtual é uma técnica que permite que o sistema operacional execute programas maiores do que a memória física disponível.  
+Parte do disco rígido é usada como uma extensão da RAM, armazenando páginas ou segmentos que não estão sendo usados no momento.  
+Isso é feito de forma transparente ao usuário, garantindo a ilusão de uma memória “infinita”.
+
+
+12. O que é o *swap* ou *troca de páginas*?
+
+O *swap* é o processo de transferência de páginas entre a memória principal (RAM) e a memória secundária (disco).  
+Quando a RAM está cheia, o sistema move páginas inativas para o disco (*swap out*) e traz páginas necessárias de volta (*swap in*).  
+Apesar de eficiente para manter múltiplos programas ativos, o uso excessivo de *swap* pode causar lentidão (fenômeno chamado **thrashing**).
+
+
+
+13. O que é tabela de páginas?
+
+É uma estrutura mantida pelo sistema operacional para mapear endereços lógicos em endereços físicos.  
+Cada entrada da tabela contém o número do quadro onde a página está armazenada e bits de controle (como validade, modificação e proteção).  
+Esse mapeamento é feito com auxílio do **MMU (Memory Management Unit)**, um componente de hardware dedicado à tradução de endereços.
+
+
+14. O que é *page fault* (falha de página)?
+
+Uma falha de página ocorre quando um processo tenta acessar uma página que não está na memória principal.  
+O sistema operacional então busca essa página no disco, a carrega na RAM e atualiza a tabela de páginas.  
+Embora inevitável em sistemas com memória virtual, um número excessivo de *page faults* degrada o desempenho.
+
+
+15. O que é o *bit de validade* em uma tabela de páginas?
+
+O bit de validade indica se a página está carregada na memória principal (1) ou não (0).  
+Quando um processo acessa uma página com bit de validade igual a 0, ocorre um *page fault*.  
+Esse mecanismo garante **proteção de memória**, evitando acessos indevidos a áreas não alocadas.
+
+
+16. Quais são as principais políticas de substituição de páginas?
+
+Quando não há espaço na RAM, o sistema precisa decidir qual página remover.  
+As principais políticas são:  
+- FIFO (First In, First Out): remove a página mais antiga.  
+- LRU (Least Recently Used): remove a página menos usada recentemente.  
+- LFU (Least Frequently Used): remove a página com menor frequência de uso.  
+- Ótima: remove a página que não será usada por mais tempo (teórica, usada como referência).
+
+
+17. O que é o algoritmo FIFO?
+
+No algoritmo FIFO, as páginas são tratadas como uma fila (primeiro que entra, primeiro que sai).  
+Quando uma nova página precisa ser carregada e não há espaço, a mais antiga é substituída.  
+Embora simples, o FIFO pode causar o **efeito Belady**, em que mais quadros não necessariamente reduzem as falhas de página.
+
+
+18. O que é o algoritmo LRU?
+
+O LRU remove a página que não foi usada há mais tempo, assumindo que páginas recentemente usadas têm maior probabilidade de serem acessadas novamente.  
+É mais eficiente que o FIFO, mas mais complexo de implementar, pois requer controle temporal de acesso das páginas.
+
+19. O que é memória cache?
+
+A cache é uma memória de alta velocidade entre o processador e a RAM.  
+Ela armazena cópias de dados frequentemente acessados, reduzindo o tempo de busca e aumentando o desempenho.  
+Há níveis de cache (L1, L2, L3), sendo L1 a mais rápida e menor, e L3 a maior e mais lenta.
+
+
+20. Qual a importância da gerência de memória para o desempenho do sistema?
+
+A gerência de memória é fundamental para garantir 'eficiência, segurança e estabilidade' no sistema.  
+Ela influencia diretamente:
+- O desempenho dos programas;
+- O tempo de resposta do sistema;
+- O uso equilibrado dos recursos de hardware.  
+Uma má gestão pode causar lentidão, travamentos ou até falhas no sistema.
+
+
+21. O que é o **Spooling** (Simultaneous Peripheral Operations Online) e qual seu principal objetivo no gerenciamento de dispositivos?
+
+Spooling é uma técnica que utiliza o disco (ou outra memória) como um *buffer* para armazenar dados de E/S de múltiplos processos, especialmente para dispositivos lentos, como impressoras.
+
+22. Qual a principal diferença entre um **dispositivo de bloco** (*block device*) e um **dispositivo de caractere** (*character device*)?
+
+Dispositivos de bloco transferem dados em unidades de tamanho fixo (blocos), permitindo acesso aleatório (ex: disco rígido). Dispositivos de caractere transferem dados byte a byte ou caractere a caractere, tipicamente em um fluxo sequencial (ex: teclado, porta serial).
+A diferença fundamental reside na unidade mínima de transferência de dados e na capacidade de acesso aleatório do dispositivo.
+
+
+23. Descreva o papel de um **Driver de Dispositivo** no subsistema de E/S.
+
+O Driver de Dispositivo é um software que reside no kernel e atua como um tradutor. Ele oferece uma interface padronizada de alto nível para o restante do Sistema Operacional e realiza a comunicação específica de baixo nível com o controlador do hardware.
+Ele encapsula as particularidades do hardware, permitindo que o SO acesse o dispositivo sem precisar conhecer os detalhes de sua operação.
+
+
+
+24. Explique a função do **Acesso Direto à Memória (DMA)**.
+
+O DMA é um mecanismo que permite que o controlador de dispositivo transfira dados diretamente entre o dispositivo e a memória principal (RAM), sem exigir que a CPU se envolva na transferência de cada byte.
+O objetivo é reduzir a sobrecarga da CPU em grandes transferências de dados de E/S, liberando a CPU para executar outras tarefas.
+
+
+25. Compare a E/S controlada por **Polling (Sondeio)** com a E/S controlada por **Interrupção (*Interrupt*)**.
+
+No Polling, a CPU verifica repetidamente (em um *loop*) o registro de status do dispositivo para saber se a operação de E/S foi concluída. Na Interrupção, o dispositivo notifica a CPU apenas quando a operação termina.
+O Polling pode desperdiçar ciclos da CPU se o dispositivo for lento, enquanto a Interrupção é mais eficiente para dispositivos lentos, mas tem uma sobrecarga maior de software.
+
+26. O que é **Buffering** e por que ele é crucial no gerenciamento de E/S?
+
+Buffering é o uso de uma área da memória (buffer) para armazenar dados temporariamente durante a transferência entre dispositivos ou entre a CPU e um dispositivo.
+É usado para resolver diferenças de velocidade (mismatch) entre o produtor e o consumidor dos dados, além de ser necessário para suportar a transferência de dados via DMA.
+
+
+27. Liste três responsabilidades principais do subsistema de **Gerenciamento de E/S** do Sistema Operacional.
+
+1. **Abstração:** Fornecer uma interface lógica e uniforme para os aplicativos, independentemente dos detalhes do hardware.
+2. **Alocação:** Gerenciar a alocação e desalocação de dispositivos (compartilháveis e dedicados).
+3. **Controle:** Implementar e gerenciar mecanismos de controle de E/S (interrupções, DMA, etc.).
+
+O SO atua como intermediário, garantindo que o acesso a recursos de hardware seja eficiente, seguro e simplificado para o software de nível superior.
+
+
+28. Em uma operação de E/S típica, qual é o papel do **Controlador de Dispositivo (Hardware)**?
+
+
+O Controlador de Dispositivo é o componente de hardware (chip ou placa) que interage diretamente com o dispositivo físico. Ele traduz comandos recebidos do driver em sinais elétricos que o dispositivo entende e possui registradores de status, dados e comandos.
+É a parte do hardware responsável por operar o dispositivo físico e gerenciar o fluxo de dados entre o dispositivo e o barramento do sistema.
+
+
+29. O que é o **handler de interrupção** e onde ele reside?
+
+O handler (rotina de tratamento) de interrupção é um software dentro do **kernel** do sistema operacional, responsável por determinar a causa de uma interrupção, processá-la, executar a ação apropriada e, em seguida, restaurar o estado da CPU.
+Ele reside na área de memória do kernel e é invocado pelo mecanismo de interrupção por meio da tabela de vetor de interrupções.
+
+
+30. O que a técnica de **"caching" de E/S** envolve e qual a sua principal vantagem?
+
+Caching de E/S envolve armazenar cópias de dados de E/S recentes em uma área de memória de acesso mais rápido (cache) gerenciada pelo SO ou hardware.
+Sua vantagem é reduzir o tempo de acesso a dados frequentemente solicitados, evitando leituras repetidas e lentas do dispositivo físico.
+
+
+31. Descreva a camada do **Subsistema de E/S Independente de Dispositivo** na hierarquia do software de E/S.
+
+Essa camada fica entre a camada de aplicação/chamadas de sistema e os drivers de dispositivo. Ela trata de operações que são comuns a todos os dispositivos, como alocação de buffers, agendamento de disco e tratamento de erros genéricos.
+Essa camada garante uniformidade e portabilidade, centralizando funções comuns para evitar duplicação de código nos drivers.
+
+
+32. No contexto de E/S, o que é um **Dispositivo Dedicado** e um **Dispositivo Compartilhável**?
+
+Um Dispositivo Dedicado é aquele que só pode ser usado por um processo por vez (ex: gravador de CD antigo). Um Dispositivo Compartilhável pode ser usado por múltiplos processos simultaneamente, muitas vezes com interleaving de solicitações (ex: disco rígido, teclado).
+O gerenciamento de dispositivos pelo SO deve considerar a natureza de acesso do dispositivo para implementar as políticas de alocação e exclusão mútua corretas.
+
+
+33. Qual é o propósito do **registro de status** em um controlador de dispositivo?
+
+O registro de status é usado pelo controlador de dispositivo (hardware) para informar o driver (software) sobre o estado atual do dispositivo, como se ele está pronto para aceitar um comando, se uma operação foi concluída ou se ocorreu algum erro.
+É o principal meio de comunicação assíncrona do hardware para o software, especialmente em mecanismos de Polling e de Interrupção.
+
+
+34. O que significa o termo **"busy waiting" (espera ocupada)** e com qual mecanismo de E/S ele está frequentemente associado?
+
+Busy waiting é o estado em que a CPU executa um loop de teste continuamente, verificando uma condição de E/S (como o dispositivo estar pronto), em vez de ser desativada para que outro processo seja executado. Está associado ao **Polling**.
+É considerado ineficiente porque a CPU está ocupada verificando um status em vez de executar tarefas úteis, reduzindo a taxa de utilização da CPU.
+
+
+35. No contexto de **E/S Mapeada na Memória (*Memory-Mapped I/O*)**, qual é a principal preocupação de segurança para o Sistema Operacional?
+
+A principal preocupação é a proteção: garantir que um programa de usuário, sem permissão, não possa acessar acidentalmente ou maliciosamente os endereços de memória que correspondem aos registradores de comandos e status do controlador de dispositivo.
+O acesso a registradores críticos deve ser restrito ao modo kernel para manter a integridade do sistema operacional e do hardware.
+
+
+36. Como o **Spooling** auxilia na **multiprogramação**?
+
+O Spooling permite que múltiplos processos 'escrevam' dados para um dispositivo lento (ex: impressora) em arquivos temporários no disco. O SO gerencia a fila para o dispositivo real.
+Isso aumenta o grau de multiprogramação, pois os processos liberam o recurso de E/S lento mais rapidamente e voltam ao estado 'pronto' para execução, em vez de ficarem bloqueados esperando o dispositivo físico.
+
+37. Por que o **DMA** requer cooperação tanto de **hardware** (o controlador DMA) quanto de **software** (o driver/SO)?
+
+O hardware (controlador DMA) é necessário para a transferência física de dados. O software (driver/SO) é necessário para **programar** o controlador DMA com os parâmetros essenciais: endereço de memória de origem/destino, contagem de bytes e a direção da transferência.
+O processo de DMA é uma sequência de programação (software) seguida por uma execução autônoma (hardware).
+
+
+38. Qual a função de uma **tabela de vetor de interrupções (*interrupt vector table*)**?
+
+A tabela de vetor de interrupções é uma tabela de ponteiros (endereços) mantida pelo SO na memória, onde cada entrada corresponde a um tipo específico de interrupção (incluindo as de E/S) e aponta para a rotina de tratamento (*handler*) correspondente.
+Permite que o hardware encontre e execute rapidamente o código correto do kernel para lidar com uma interrupção específica, agilizando a resposta do sistema.
+
+
+39. No gerenciamento de dispositivos, o que é a **"abstração de dispositivo"**?
+
+Abstração de dispositivo é o conceito de que o sistema operacional fornece uma interface lógica e uniforme para os aplicativos, escondendo os detalhes e a complexidade do hardware físico subjacente (o dispositivo).
+Isso permite que os aplicativos sejam escritos de forma independente do dispositivo, facilitando a portabilidade e a manutenção do software.
+
+
+40. Por que a **proteção de E/S (*I/O Protection*)** é essencial para a operação de um sistema operacional multiusuário/multitarefa?
+
+A proteção de E/S é essencial para garantir que um programa de usuário (com falha ou malicioso) não possa executar operações de E/S diretamente ou manipular registradores de dispositivo, o que poderia comprometer a estabilidade e a segurança de todo o sistema e de outros processos.
+O acesso a E/S é restrito ao modo kernel, assegurando que apenas o código confiável do SO controle os recursos críticos de hardware.
